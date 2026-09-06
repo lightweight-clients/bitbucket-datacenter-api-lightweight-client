@@ -21,6 +21,9 @@ jobs:
         with:
           repository: lightweight-clients/bitbucket-datacenter-api-lightweight-client-generator
           path: generator
+      - name: Install client dependencies
+        working-directory: client
+        run: npm ci
       - name: Generate client
         working-directory: generator
         run: npm ci && npm start
