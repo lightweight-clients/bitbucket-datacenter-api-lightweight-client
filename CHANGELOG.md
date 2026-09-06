@@ -5,4 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-Initial setup of the template.
+## 9.4.0
+
+Initial Bitbucket Data Center 9.4 client release.

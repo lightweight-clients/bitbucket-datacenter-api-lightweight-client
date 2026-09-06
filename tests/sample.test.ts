@@ -3,6 +3,7 @@ import {
   client_setAuthorization,
   client_setBaseUrl,
   client_setFetch,
+  getProject,
   getProjects,
 } from '../src/index.js';
 
@@ -25,4 +26,20 @@ test('adds rest path for Data Center deployment root', async () => {
     'https://bitbucket.example.test/context/rest/api/latest/projects',
   );
   expect(request.headers.get('Authorization')).toBe('Bearer token');
+});
+
+test('serializes generated path parameters', async () => {
+  const fetchMock = vi.fn<(request: Request) => Promise<Response>>(
+    async () => new Response(JSON.stringify({ key: 'PROJECT' })),
+  );
+  client_setBaseUrl('https://bitbucket.example.test');
+  client_setFetch(fetchMock as typeof globalThis.fetch);
+
+  await getProject({ path: { projectKey: 'PROJECT' } });
+
+  const request = fetchMock.mock.calls.at(0)?.at(0);
+  if (!request) throw new Error('Expected a request');
+  expect(request.url).toBe(
+    'https://bitbucket.example.test/rest/api/latest/projects/PROJECT',
+  );
 });
