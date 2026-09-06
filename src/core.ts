@@ -6,9 +6,7 @@ export const client_setBaseUrl = (baseUrl: string): void => {
 };
 
 export const client_setAuthorization = (authorization?: string): void => {
-  const headers = new Headers(
-    client.getConfig().headers as HeadersInit | undefined,
-  );
+  const headers = new Headers(client.getConfig().headers as HeadersInit | undefined);
   if (authorization === undefined) headers.delete('Authorization');
   else headers.set('Authorization', authorization);
   client.setConfig({ headers });
